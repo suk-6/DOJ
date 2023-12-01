@@ -59,7 +59,18 @@ services:
       - POSTGRES_PASSWORD=onlinejudge
       - JUDGE_SERVER_TOKEN=CHANGE_THIS
       # - FORCE_HTTPS=1
-      # - STATIC_CDN_HOST=cdn.oj.com
+      - STATIC_CDN_HOST=oj-frontend.doj.orb.local
     ports:
       - "0.0.0.0:80:8000"
       - "0.0.0.0:443:1443"
+
+  oj-frontend:
+    image: ghcr.io/suk-6/doj-fe:latest
+    container_name: oj-frontend
+    restart: always
+    depends_on:
+      - oj-backend
+    environment:
+      - TARGET=http://oj-backend:8000
+    ports:
+      - "0.0.0.0:9000:8080"
