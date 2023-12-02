@@ -44,7 +44,7 @@ services:
       # - judger_debug=1
   
   oj-backend:
-    image: registry.cn-hangzhou.aliyuncs.com/onlinejudge/oj_backend
+    image: ghcr.io/suk-6/doj-be:latest
     container_name: oj-backend
     restart: always
     depends_on:
@@ -72,5 +72,6 @@ services:
       - oj-backend
     environment:
       - TARGET=http://oj-backend:8000
+      - HOST=http://localhost:9000
     ports:
       - "0.0.0.0:9000:8080"
